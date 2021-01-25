@@ -89,6 +89,36 @@ def train_wont_work(num_episodes = 1000):
             optimizer.zero_grad()
             loss.backward() # AttributeError: 'float' object no attribute 'backward'
             optimizer.step()
+
+def train_simmple(num_episodes = 10 * 1000):
+    num_steps = 500
+    ts = []
+    for episode in range(num_episodes):
+        state = env.reset()
+        probs = []
+        for t in range (1, num_steps + 1):
+            action, prob = select_action_from_policy(model, state)
+            probs.append(prob)
+            state, _, done, _ = env.step(action)
+            if done:
+                break
+        loss = 0
+
+    for i, prob in enumerate(probs):
+        loss += -1 * (t - i) * prob
+        prob(episode, t, loss.item())
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+        ts.append(t)
+        
+        # check stopping condition:
+        if len(ts) > 10 and sum(ts[-10:]) / 10.0 >= num_steps * 0.95:
+            print("Stopping training, looks good...")
+            return
+
+traint_simple()
+
 while True:
     action = select_action(state)
     staet, _, done, _ = env.step()
