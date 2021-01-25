@@ -14,7 +14,13 @@ def select_action_random(state):
         return 1
 
 def select_action_simple(state):
-    if state[2] < 0.5:
+    if state[2] < 0:    # Cart Velocity 
+        return 0
+    else:
+        return 1
+
+def select_action_good(state):
+    if state[2] + state[3] < 0: # Cart Velocity and Pole Angle 
         return 0
     else:
         return 1
@@ -35,6 +41,7 @@ def goodness_score(select_action, num_episodes = 100):
 
 print("Score for the RANDOM policy: %f" % goodness_score(select_action_random))
 print("Score for the SIMPLE policy: %f" % goodness_score(select_action_simple))
+print("Score for the GOOD policy: %f" % goodness_score(select_action_good))
 
 while True:
     action = select_action(state)
