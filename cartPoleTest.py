@@ -14,7 +14,7 @@ def select_action_random(state):
         return 1
 
 def select_action_simple(state):
-    if state[2] < 0.5:
+    if state[2] < 0:
         return 0
     else:
         return 1
