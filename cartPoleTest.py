@@ -58,6 +58,37 @@ class PolicyNN(nn.Module):
         x = self.fc(x)
         return F.softmax(x, dim = 1)
 
+def select_action_from_policy(model, stete):
+    state = torch.from_numpy(state).float().unsqueeze(0)    # )
+    probs = model(state)
+    m = Categorical(probs)
+    actin = m.sample()
+    return action.item(), m.log_prob(action)
+
+def select_action_from_policy_best(model, state):
+    state = torch.from_numpy(state).float().unsqueeze(0)
+    probs = model(state)
+    if probs[0][0] > prob[0][1]:
+        return 0
+    else:
+        return 1
+
+def train_wont_work(num_episodes = 1000):
+    num_steps = 500
+    for episode in range(num_episodes):
+        state = env.reset()
+        for t in range(1, num_steps + 1):
+            action = select_action_from_policy(state)
+            state, _, done, _ = env. step(action)
+            if done:
+                break
+            loss = 1.0 - t / num_steps
+            # this does not actually work, because the loss 
+            # function is not an explicit function of the model's 
+            # output; it is a functin of book keping variables.
+            optimizer.zero_grad()
+            loss.backward() # AttributeError: 'float' object no attribute 'backward'
+            optimizer.step()
 while True:
     action = select_action(state)
     staet, _, done, _ = env.step()
