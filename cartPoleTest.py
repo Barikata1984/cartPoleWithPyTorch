@@ -51,8 +51,8 @@ print("Score for the GOOD policy: %f" % goodness_score(select_action_good))
 
 class PolicyNN(nn.Module):
     def __init__(self):
-        super(PolicyNN, self).__init__J()
-        self.fc = nn.Linear(4,2)
+        super(PolicyNN, self).__init__()
+        self.fc = nn.Linear(4, 2)   # use the linear transformer with 4 input and 2 output" 
 
     def forward(self, x):
         x = self.fc(x)
