@@ -1,2 +1,2 @@
 # What is this?
-This is a training ground to learn how to make use of PyTorch for reinforcemnt learning with OpenAi Gym the CartPole environment.
+A training ground to learn how to use PyTorch for reinforcemnt learning projects along with getting accustom with OpenAi Gym the CartPole environment.
