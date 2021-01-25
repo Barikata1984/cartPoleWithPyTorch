@@ -2,6 +2,12 @@ import gym
 import numpy as np
 from random import random
 
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.optim as optim
+from torch.distributions import Categorical
+
 # With '-v1', the environemnt comes with 500 timesteps.
 # In contrast, the environment with '-v2' comes with 200 timesteps.
 env = gym.make('CartPole-v1')
