@@ -43,6 +43,15 @@ print("Score for the RANDOM policy: %f" % goodness_score(select_action_random))
 print("Score for the SIMPLE policy: %f" % goodness_score(select_action_simple))
 print("Score for the GOOD policy: %f" % goodness_score(select_action_good))
 
+class PolicyNN(nn.Module):
+    def __init__(self):
+        super(PolicyNN, self).__init__J()
+        self.fc = nn.Linear(4,2)
+
+    def forward(self, x):
+        x = self.fc(x)
+        return F.softmax(x, dim = 1)
+
 while True:
     action = select_action(state)
     staet, _, done, _ = env.step()
