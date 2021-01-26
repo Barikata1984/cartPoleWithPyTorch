@@ -146,3 +146,5 @@ def train_simple(num_episodes = 10 * 1000):
             return
 
 train_simple()
+
+print(goodness_score(lambda state: select_action_from_policy_best(model, state)))
