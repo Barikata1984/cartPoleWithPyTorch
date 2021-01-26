@@ -8,6 +8,11 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torch.distributions import Categorical
 
+# With '-v1', the environemnt comes with 500 timesteps.
+# In contrast, the environment with '-v2' comes with 200 timesteps.
+env = gym.make('CartPole-v1')
+print(env._max_episode_steps)
+
 ###########################################
 # Basic Concept of Reinforcement Learning
 ###########################################
@@ -24,11 +29,6 @@ from torch.distributions import Categorical
 #         break
 #
 ###########################################
-
-# With '-v1', the environemnt comes with 500 timesteps.
-# In contrast, the environment with '-v2' comes with 200 timesteps.
-env = gym.make('CartPole-v1')
-print(env._max_episode_steps)
 
 def select_action_random(state):
     if random() < 0.5:
