@@ -13,40 +13,23 @@ from torch.distributions import Categorical
 env = gym.make('CartPole-v1')
 print(env._max_episode_steps)
 
-###########################################
-# Basic Concept of Reinforcement Learning
-###########################################
-#
-# !! ATTENITON !! 
-# !! THE FOLLOWING COMMENTED OUT CODES DO NOT WORK !!
-# !! JUST A DESCRIPTOIN OF FUNDAMENTAL CONCEPT !!
-#
-# while True:
-#     action = select_action(state)
-#     staet, _, done, _ = env.step()
-#     env.render()
-#     if done:
-#         break
-#
-###########################################
-
 def select_action_random(state):
     if random() < 0.5:
-        return 0
+        return 0    # left
     else:
-        return 1
+        return 1    # reight
 
 def select_action_simple(state):
     if state[2] < 0:    # Cart Velocity 
-        return 0
+        return 0    # left
     else:
-        return 1
+        return 1    # reight
 
 def select_action_good(state):
     if state[2] + state[3] < 0: # Cart Velocity and Pole Angle 
-        return 0
+        return 0    # left
     else:
-        return 1
+        return 1    # reight
 
 def goodness_score(select_action, num_episodes = 100):
     num_steps = 500
