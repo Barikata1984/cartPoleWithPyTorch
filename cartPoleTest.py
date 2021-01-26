@@ -58,20 +58,27 @@ class PolicyNN(nn.Module):
         x = self.fc(x)
         return F.softmax(x, dim = 1)
 
-def select_action_from_policy(model, stete):
-    state = torch.from_numpy(state).float().unsqueeze(0)    # )
+def select_action_from_policy(model, state):
+    state = torch.from_numpy(state).float().unsqueeze(0)
     probs = model(state)
     m = Categorical(probs)
-    actin = m.sample()
+    action = m.sample()
     return action.item(), m.log_prob(action)
 
 def select_action_from_policy_best(model, state):
     state = torch.from_numpy(state).float().unsqueeze(0)
     probs = model(state)
-    if probs[0][0] > prob[0][1]:
+    if probs[0][0] > probs[0][1]:
         return 0
     else:
         return 1
+
+model_untrained = PolicyNN()
+
+print(
+    goodness_score(lambda state: select_action_from_policy(model_untrained, state)[0]),
+    goodness_score(lambda state: select_action_from_policy_best(model_untrained, state))
+) 
 
 def train_wont_work(num_episodes = 1000):
     num_steps = 500
@@ -89,6 +96,9 @@ def train_wont_work(num_episodes = 1000):
             optimizer.zero_grad()
             loss.backward() # AttributeError: 'float' object no attribute 'backward'
             optimizer.step()
+
+model = PolicyNN()
+optimizer = optim.Adam(model.parameters(), lr = 0.01)
 
 def train_simple(num_episodes = 10 * 1000):
     num_steps = 500
