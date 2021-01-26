@@ -13,18 +13,22 @@ from torch.distributions import Categorical
 env = gym.make('CartPole-v1')
 print(env._max_episode_steps)
 
+# random policy
 def select_action_random(state):
     if random() < 0.5:
         return 0    # left
     else:
         return 1    # reight
 
+# simple policy: the cart moves backward when it goes out of the simulation space
 def select_action_simple(state):
     if state[2] < 0:    # Cart Velocity 
         return 0    # left
     else:
         return 1    # reight
 
+# good policy (by luck): the cart moves backward when it and the pole move toward out of the space
+# this policy is more sensitive than the other policies above because the addition of cart velocity and pole angle is considered in the if statement 
 def select_action_good(state):
     if state[2] + state[3] < 0: # Cart Velocity and Pole Angle 
         return 0    # left
