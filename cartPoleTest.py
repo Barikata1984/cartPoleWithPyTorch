@@ -46,7 +46,6 @@ def goodness_score(select_action, num_episodes = 100):
             if done:
                 scoreHistory.append(t)
                 break
-#        scoreHistory.append(t)
     score = sum(scoreHistory) / (len(scoreHistory) * num_steps)
     return score
 
