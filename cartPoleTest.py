@@ -8,6 +8,23 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torch.distributions import Categorical
 
+###########################################
+# Basic Concept of Reinforcement Learning
+###########################################
+#
+# !! ATTENITON !! 
+# !! THE FOLLOWING COMMENTED OUT CODES DO NOT WORK !!
+# !! JUST A DESCRIPTOIN OF FUNDAMENTAL CONCEPT !!
+#
+# while True:
+#     action = select_action(state)
+#     staet, _, done, _ = env.step()
+#     env.render()
+#     if done:
+#         break
+#
+###########################################
+
 # With '-v1', the environemnt comes with 500 timesteps.
 # In contrast, the environment with '-v2' comes with 200 timesteps.
 env = gym.make('CartPole-v1')
@@ -114,9 +131,10 @@ def train_simple(num_episodes = 10 * 1000):
                 break
         loss = 0
 
-    for i, prob in enumerate(probs):
-        loss += -1 * (t - i) * prob
-        prob(episode, t, loss.item())
+        for i, prob in enumerate(probs):
+            loss += -1 * (t - i) * prob
+        
+        print(episode, t, loss.item())
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
@@ -128,11 +146,3 @@ def train_simple(num_episodes = 10 * 1000):
             return
 
 train_simple()
-
-while True:
-    action = select_action(state)
-    staet, _, done, _ = env.step()
-    env.render()
-    if done:
-        break
-
